@@ -26,3 +26,6 @@ venv 有効化後、リポジトリルートで実行する。
 | 一気通貫 | `run_digest.bat` | ①〜④ + git push |
 
 ②〜④は digest.json の `date` が当日(JST)でない場合 exit 1 する(前日分の再配信防止)。
+
+テスト実行: `python -m unittest discover -s tests`(ネットワーク不使用)
+

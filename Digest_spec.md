@@ -49,6 +49,7 @@ discover-digest/
 ├── render_md.py
 ├── run_digest.bat
 ├── requirements.txt           # feedparser, pyyaml, requests, python-dotenv
+├── tests/                     # ユニットテスト(unittest・ネットワーク不使用)
 ├── .env                       # webhook URL(コミット禁止)
 ├── .env.example               # .env の雛形(キー名のみ・コミット対象)
 ├── .gitignore
