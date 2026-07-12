@@ -41,7 +41,7 @@ Perplexity Discover の個人版 — RSS × Claude Code × Discord webhook + Git
 ```
 discover-digest/
 ├── CLAUDE.md                  # プロジェクト文脈(Claude Code用)
-├── digest-spec.md             # 本書
+├── Digest_spec.md             # 本書
 ├── README.md                  # 最新ダイジェストへのリンク(render_md.pyが自動更新)
 ├── feeds.yaml                 # カテゴリ・RSS定義
 ├── collect.py

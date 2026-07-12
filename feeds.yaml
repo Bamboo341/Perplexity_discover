@@ -1,0 +1,27 @@
+# カテゴリ・RSS定義(スキーマは Digest_spec.md §3)
+categories:
+  - id: ai_tech
+    name: "AI・テック"
+    webhook_env: DISCORD_WEBHOOK_AI    # .env 内のキー名
+    color: 0x5865F2                    # embed の色
+    max_topics: 4                      # ダイジェスト採用上限
+    feeds:
+      - { name: "Hacker News", url: "https://news.ycombinator.com/rss" }
+      - { name: "Google News AI", url: "https://news.google.com/rss/search?q=AI&hl=ja&gl=JP&ceid=JP:ja" }
+      - { name: "ITmedia AI+", url: "https://rss.itmedia.co.jp/rss/2.0/aiplus.xml" }
+  - id: markets_macro
+    name: "マーケット・経済"
+    webhook_env: DISCORD_WEBHOOK_MARKETS
+    color: 0x57F287
+    max_topics: 3
+    feeds:
+      - { name: "Google News ビジネス", url: "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=ja&gl=JP&ceid=JP:ja" }
+      - { name: "NHK 経済", url: "https://www3.nhk.or.jp/rss/news/cat5.xml" }
+  - id: geopolitics
+    name: "国際・地政学"
+    webhook_env: DISCORD_WEBHOOK_GEO
+    color: 0xED4245
+    max_topics: 3
+    feeds:
+      - { name: "Google News 国際", url: "https://news.google.com/rss/headlines/section/topic/WORLD?hl=ja&gl=JP&ceid=JP:ja" }
+      - { name: "NHK 国際", url: "https://www3.nhk.or.jp/rss/news/cat6.xml" }
