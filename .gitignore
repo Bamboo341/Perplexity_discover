@@ -1,0 +1,14 @@
+# 秘匿情報
+.env
+
+# Python
+venv/
+__pycache__/
+
+# transient 出力(digest/ と data/archive/ はコミットする)
+data/items.json
+data/digest.json
+
+# ログ(ディレクトリ自体は .gitkeep で維持)
+logs/*
+!logs/.gitkeep
