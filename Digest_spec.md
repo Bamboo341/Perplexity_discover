@@ -52,6 +52,7 @@ discover-digest/
 ├── tests/                     # ユニットテスト(unittest・ネットワーク不使用)
 ├── .env                       # webhook URL(コミット禁止)
 ├── .env.example               # .env の雛形(キー名のみ・コミット対象)
+├── .gitattributes             # *.bat を CRLF checkout に固定
 ├── .gitignore
 ├── .claude/
 │   └── commands/
@@ -287,6 +288,8 @@ rem 日付はロケール非依存で取得(%date% は書式が実行アカウ�
 for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd"') do set TODAY=%%i
 set LOG=logs\%TODAY%.log
 
+if not exist logs mkdir logs
+
 call venv\Scripts\activate
 
 rem 前回の transient を削除(②が生成物を書かず終了した場合に前日分を再配信しないため)
@@ -303,7 +306,7 @@ python send_discord.py >> %LOG% 2>&1 || set ERR=1
 python render_md.py >> %LOG% 2>&1
 if %errorlevel%==0 (
   git add digest data\archive README.md >> %LOG% 2>&1
-  git diff --cached --quiet || git commit -m "digest: %TODAY%" >> %LOG% 2>&1
+  git diff --cached --quiet || git commit -m "digest: %TODAY%" >> %LOG% 2>&1 || set ERR=1
   git push >> %LOG% 2>&1 || set ERR=1
 ) else (
   set ERR=1
@@ -316,7 +319,9 @@ echo [ERROR] pipeline aborted >> %LOG%
 exit /b 1
 ```
 
-- `claude` は必ず `call` 経由で呼ぶ(§5)。`git diff --cached --quiet ||` は「差分ゼロの再実行でコミットが exit 1 になり偽エラー扱いされる」ことへのガード
+- `claude` は必ず `call` 経由で呼ぶ(§5)。`git diff --cached --quiet ||` は「差分ゼロの再実行でコミットが exit 1 になり偽エラー扱いされる」ことへのガード(末尾の `|| set ERR=1` はコミット自体の失敗を拾う)
+- bat 本体のコメントは ASCII のみとする(cmd.exe は bat をシステムコードページ = cp932 で解釈するため、UTF-8 の日本語コメントはパース事故の原因になり得る)
+- 改行コードは .gitattributes(`*.bat text eol=crlf`)でチェックアウト時に CRLF 固定にする(LF の bat は cmd.exe で誤動作することがある)
 
 ### タスクスケジューラ設定
 - トリガー: 毎日 06:30

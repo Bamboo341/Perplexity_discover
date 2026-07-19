@@ -1,0 +1,2 @@
+# bat は cmd.exe の LF 起因の誤動作を避けるため、チェックアウト時に必ず CRLF にする
+*.bat text eol=crlf
